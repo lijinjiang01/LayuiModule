@@ -1,0 +1,19 @@
+<!-- 通用 CSS -->
+<head th:fragment="header(title)">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/sys/pear/css/pear.css}">
+    <link rel="stylesheet" th:href="@{/sys/css/admin.css}">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
+</head>
+
+<!-- 通用 JAVASCRIPT -->
+<div th:fragment="footer">
+    <script th:src="@{/sys/layui/layui.js}"></script>
+    <script th:src="@{/sys/pear/pear.js}"></script>
+    <script th:src="@{/sys/js/jquery.min.js}"></script>
+</div>
