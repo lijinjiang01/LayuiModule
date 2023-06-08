@@ -6,6 +6,7 @@
         body {
             overflow: hidden;
         }
+
         .iconPicker-demo {
             margin-top: 100px;
             border-width: 1px;
@@ -96,11 +97,7 @@
 
         iconPicker.render({
             elem: '#icon',// 选择器，推荐使用input
-            url: '/layui/font/iconfont.svg',
-            // 数据类型：fontClass/unicode，推荐使用fontClass
-            //type: 'fontClass',
-            search: true,// 是否开启搜索：true/false，默认true
-            page: true,// 是否开启分页：true/false，默认true
+            url: '/layui/font/iconfont.svg',// Layui的字体 svg 路径
             limit: 16,// 每页显示数量，默认12（默认4行）
             click: function (data) { // 点击回调
                 //console.log(data);
