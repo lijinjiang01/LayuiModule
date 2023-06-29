@@ -367,6 +367,8 @@ layui.define(['laypage', 'form'], function (exports) {
                     let icons = svg.getElementsByTagName("svg")[0].getElementsByTagName("defs")[0].getElementsByTagName("font")[0].getElementsByTagName("glyph");
                     for (let i = 0; i < icons.length; i++) {
                         let iconName = icons[i].getAttribute("glyph-name");
+                        let unicode = icons[i].getAttribute("unicode");
+                        console.log(iconName + ' = ' + unicode.charCodeAt(0).toString(16));
                         iconData.push("layui-icon-" + iconName);
                     }
                     return iconData;
