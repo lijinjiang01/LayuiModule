@@ -98,6 +98,7 @@
         iconPicker.render({
             elem: '#icon',// 选择器，推荐使用input
             url: '/layui/font/iconfont.svg',// Layui的字体 svg 路径
+            type: 'unicode',
             limit: 16,// 每页显示数量，默认12（默认4行）
             click: function (data) { // 点击回调
                 //console.log(data);
@@ -109,6 +110,8 @@
 
         form.on('submit(menu-save)', function (data) {
             let field = data.field; // 获取表单全部字段值
+            field.icon = '&#x' + field.icon.charCodeAt(0).toString(16) + ';';
+            console.log(field.icon);
             // 显示填写结果，仅作演示用
             layer.alert(JSON.stringify(field), {
                 title: '当前填写的字段值'
@@ -116,6 +119,7 @@
             // 此处可执行 Ajax 等操作
             return false; // 阻止默认 form 跳转
         });
+
 
     });
 </script>
