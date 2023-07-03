@@ -9,8 +9,11 @@ layui.define(['laypage', 'form'], function (exports) {
 
     let IconPicker = function () {
         this.v = '1.1';
-    }, _MOD = 'iconPicker', $ = layui.jquery, BODY = 'body';
-
+    }
+        , _MOD = 'iconPicker'
+        , $ = layui.jquery
+        , BODY = 'body'
+        , iconPickerPath = layui.cache.modules['iconPicker'];
 
     /**
      * 渲染组件
@@ -25,31 +28,43 @@ layui.define(['laypage', 'form'], function (exports) {
      * @param options.success {Object} 渲染成功后的回调
      */
     IconPicker.prototype.render = function (options) {
-        let elem = options.elem, svg_url = options.url == null ? '/layui/font/iconfont.svg' : options.url,
-            type = options.type == null ? 'fontClass' : options.type, page = options.page == null ? true : options.page,
-            limit = options.limit == null ? 12 : options.limit, search = options.search == null ? true : options.search,
-            cellWidth = options.cellWidth, click = options.click, success = options.success, data = {},// json数据
-            tmp = new Date().getTime(),// 唯一标识
-            // 是否使用的class数据
-            isFontClass = type === 'fontClass', // 初始化时input的值
-            ORIGINAL_ELEM_VALUE = $(elem).val(), TITLE = 'layui-select-title', TITLE_ID = 'layui-select-title-' + tmp,
-            ICON_BODY = 'layui-iconPicker-' + tmp, PICKER_BODY = 'layui-iconPicker-body-' + tmp,
-            PAGE_ID = 'layui-iconPicker-page-' + tmp, LIST_BOX = 'layui-iconPicker-list-box',
-            selected = 'layui-form-selected', unselect = 'layui-unselect';
+        let layuiParentPath = iconPickerPath.substring(0, iconPickerPath.lastIndexOf('/layui/'))
+        let defaultSvgUrl = layuiParentPath + '/layui/font/iconfont.svg';//Layui图标的svg默认路径
+        let elem = options.elem
+            , svg_url = options.url == null ? defaultSvgUrl : options.url
+            , type = options.type == null ? 'fontClass' : options.type
+            , page = options.page == null ? true : options.page
+            , limit = options.limit == null ? 12 : options.limit
+            , search = options.search == null ? true : options.search
+            , cellWidth = options.cellWidth
+            , click = options.click
+            , success = options.success
+            , data = {} // json数据
+            , tmp = new Date().getTime()// 唯一标识
+            , isFontClass = type === 'fontClass'// 是否使用的class数据
+            , ORIGINAL_ELEM_VALUE = $(elem).val()// 初始化时input的值
+            , TITLE = 'layui-select-title'
+            , TITLE_ID = 'layui-select-title-' + tmp
+            , ICON_BODY = 'layui-iconPicker-' + tmp
+            , PICKER_BODY = 'layui-iconPicker-body-' + tmp
+            , PAGE_ID = 'layui-iconPicker-page-' + tmp
+            , LIST_BOX = 'layui-iconPicker-list-box'
+            , selected = 'layui-form-selected'
+            , unselect = 'layui-unselect';
 
-        let a = {
+        let picker = {
             init: function () {
                 data = common.getData[type]();
 
-                a.hideElem().createSelect().createBody().toggleSelect();
-                a.preventEvent().inputListen();
+                picker.hideElem().createSelect().createBody().toggleSelect();
+                picker.preventEvent().inputListen();
                 common.loadCss();
 
                 if (success) {
                     success(this.successHandle());
                 }
 
-                return a;
+                return picker;
             }, successHandle: function () {
                 return {
                     options: options, data: data, id: tmp, elem: $('#' + ICON_BODY)
@@ -59,7 +74,7 @@ layui.define(['laypage', 'form'], function (exports) {
              */
             hideElem: function () {
                 $(elem).hide();
-                return a;
+                return picker;
             }, /**
              * 绘制select下拉选择框
              */
@@ -75,13 +90,13 @@ layui.define(['laypage', 'form'], function (exports) {
 
                 let selectHtml = '<div class="layui-iconPicker layui-unselect layui-form-select" id="' + ICON_BODY + '">' + '<div class="' + TITLE + '" id="' + TITLE_ID + '">' + '<div class="layui-iconPicker-item">' + '<span class="layui-iconPicker-icon layui-unselect">' + oriIcon + '</span>' + '<i class="layui-edge"></i>' + '</div>' + '</div>' + '<div class="layui-anim layui-anim-upbit" style="">' + '123' + '</div>';
                 $(elem).after(selectHtml);
-                return a;
+                return picker;
             }, /**
              * 展开/折叠下拉框
              */
             toggleSelect: function () {
                 let item = '#' + TITLE_ID + ' .layui-iconPicker-item,#' + TITLE_ID + ' .layui-iconPicker-item .layui-edge';
-                a.event('click', item, function (e) {
+                picker.event('click', item, function (e) {
                     let $icon = $('#' + ICON_BODY);
                     if ($icon.hasClass(selected)) {
                         $icon.removeClass(selected).addClass(unselect);
@@ -93,7 +108,7 @@ layui.define(['laypage', 'form'], function (exports) {
                     }
                     e.stopPropagation();
                 });
-                return a;
+                return picker;
             }, /**
              * 绘制主体部分
              */
@@ -108,16 +123,19 @@ layui.define(['laypage', 'form'], function (exports) {
                 // 组合dom
                 let bodyHtml = '<div class="layui-iconPicker-body" id="' + PICKER_BODY + '">' + searchHtml + '<div class="' + LIST_BOX + '"></div> ' + '</div>';
                 $('#' + ICON_BODY).find('.layui-anim').eq(0).html(bodyHtml);
-                a.search().createList("").check().page();
+                picker.search().createList(null).check().page();
 
-                return a;
+                return picker;
             }, /**
              * 绘制图标列表
              * @param text 模糊查询关键字
-             * @returns {string}
+             * @returns {Object}
              */
             createList: function (text) {
-                let d = data, l = d.length, pageHtml = '', listHtml = $('<div class="layui-iconPicker-list">')//'<div class="layui-iconPicker-list">';
+                let d = data
+                    , l = d.length
+                    , pageHtml = ''
+                    , listHtml = $('<div class="layui-iconPicker-list">')//'<div class="layui-iconPicker-list">';
 
                 // 计算分页数据
                 let _limit = limit, // 每页显示数量
@@ -179,20 +197,22 @@ layui.define(['laypage', 'form'], function (exports) {
 
 
                 $('#' + ICON_BODY).find('.layui-anim').find('.' + LIST_BOX).html('').append(listHtml).append(pageHtml);
-                return a;
-            }, // 阻止Layui的一些默认事件
+                return picker;
+            },
+            // 阻止Layui的一些默认事件
             preventEvent: function () {
                 let item = '#' + ICON_BODY + ' .layui-anim';
-                a.event('click', item, function (e) {
+                picker.event('click', item, function (e) {
                     e.stopPropagation();
                 });
-                return a;
-            }, // 分页
+                return picker;
+            },
+            // 分页
             page: function () {
                 let icon = '#' + PAGE_ID + ' .layui-iconPicker-page-operate .layui-icon';
 
                 $(icon).unbind('click');
-                a.event('click', icon, function (e) {
+                picker.event('click', icon, function (e) {
                     let elem = e.currentTarget, total = parseInt($('#' + PAGE_ID + '-pages').html()),
                         isPrev = $(elem).attr('prev') !== undefined, // 按钮上标的页码
                         index = parseInt($(elem).attr('data-index')), $cur = $('#' + PAGE_ID + '-current'), // 点击时正在显示的页码
@@ -213,67 +233,75 @@ layui.define(['laypage', 'form'], function (exports) {
                     $('#layui-iconPicker-icon-limit-' + tmp + current).show();
                     e.stopPropagation();
                 });
-                return a;
-            }, /**
-             * 搜索
-             */
+                return picker;
+            },
+            //搜索
             search: function () {
                 let item = '#' + PICKER_BODY + ' .layui-iconPicker-search .layui-input';
-                a.event('input propertychange', item, function (e) {
+                picker.event('input propertychange', item, function (e) {
                     let elem = e.target, t = $(elem).val();
-                    a.createList(t);
+                    picker.createList(t);
                 });
-                return a;
-            }, /**
-             * 点击选中图标
-             */
+                return picker;
+            },
+            //点击选中图标
             check: function () {
                 let item = '#' + PICKER_BODY + ' .layui-iconPicker-icon-item';
-                a.event('click', item, function (e) {
-                    let el = $(e.currentTarget).find('.layui-icon'), icon;
+                picker.event('click', item, function (e) {
+                    let el = $(e.currentTarget).find('.layui-icon')
+                        , _icon;
                     if (isFontClass) {
-                        let clsArr = el.attr('class').split(/[\s\n]/), cls = clsArr[1], icon = cls;
+                        let clsArr = el.attr('class').split(/[\s\n]/)
+                            , cls = clsArr[1]
+                        _icon = cls;
                         $('#' + TITLE_ID).find('.layui-iconPicker-item .layui-icon').html('').attr('class', clsArr.join(' '));
                     } else {
-                        let cls = el.html(), icon = cls;
-                        $('#' + TITLE_ID).find('.layui-iconPicker-item .layui-icon').html(icon);
+                        let cls = el.html();
+                        _icon = cls;
+                        $('#' + TITLE_ID).find('.layui-iconPicker-item .layui-icon').html(_icon);
                     }
 
                     $('#' + ICON_BODY).removeClass(selected).addClass(unselect);
-                    $(elem).val(icon).attr('value', icon);
+                    $(elem).val(_icon).attr('value', _icon);
                     // 回调
                     if (click) {
                         click({
-                            icon: icon
+                            icon: _icon
                         });
                     }
                 });
-                return a;
+                return picker;
             }, // 监听原始input数值改变
             inputListen: function () {
                 let el = $(elem);
-                a.event('change', elem, function () {
+                picker.event('change', elem, function () {
                     let value = el.val();
                 })
-                return a;
+                return picker;
             }, event: function (evt, el, fn) {
                 $(BODY).on(evt, el, fn);
             }
         };
 
         let common = {
-            /**
-             * 加载样式表
-             */
+            //加载样式表
             loadCss: function () {
-                let css = '.layui-iconPicker {max-width: 280px;}.layui-iconPicker .layui-anim{display:none;position:absolute;left:0;top:42px;padding:5px 0;z-index:899;min-width:100%;border:1px solid #d2d2d2;max-height:300px;overflow-y:auto;background-color:#fff;border-radius:2px;box-shadow:0 2px 4px rgba(0,0,0,.12);box-sizing:border-box;}.layui-iconPicker-item{border:1px solid #e6e6e6;width:90px;height:38px;border-radius:4px;cursor:pointer;position:relative;}.layui-iconPicker-icon{border-right:1px solid #e6e6e6;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display:block;width:60px;height:100%;float:left;text-align:center;background:#fff;transition:all .3s;}.layui-iconPicker-icon i{line-height:38px;font-size:18px;}.layui-iconPicker-item > .layui-edge{left:70px;}.layui-iconPicker-item:hover{border-color:#D2D2D2!important;}.layui-iconPicker-item:hover .layui-iconPicker-icon{border-color:#D2D2D2!important;}.layui-iconPicker.layui-form-selected .layui-anim{display:block;}.layui-iconPicker-body{padding:6px;}.layui-iconPicker .layui-iconPicker-list{background-color:#fff;border:1px solid #ccc;border-radius:4px;}.layui-iconPicker .layui-iconPicker-icon-item{display:inline-block;width:21.1%;line-height:36px;text-align:center;cursor:pointer;vertical-align:top;height:36px;margin:4px;border:1px solid #ddd;border-radius:2px;transition:300ms;}.layui-iconPicker .layui-iconPicker-icon-item i.layui-icon{font-size:17px;}.layui-iconPicker .layui-iconPicker-icon-item:hover{background-color:#eee;border-color:#ccc;-webkit-box-shadow:0 0 2px #aaa,0 0 2px #fff inset;-moz-box-shadow:0 0 2px #aaa,0 0 2px #fff inset;box-shadow:0 0 2px #aaa,0 0 2px #fff inset;text-shadow:0 0 1px #fff;}.layui-iconPicker-search{position:relative;margin:0 0 6px 0;border:1px solid #e6e6e6;border-radius:2px;transition:300ms;}.layui-iconPicker-search:hover{border-color:#D2D2D2!important;}.layui-iconPicker-search .layui-input{cursor:text;display:inline-block;width:86%;border:none;padding-right:0;margin-top:1px;}.layui-iconPicker-search .layui-icon{position:absolute;top:11px;right:4%;}.layui-iconPicker-tips{text-align:center;padding:8px 0;cursor:not-allowed;}.layui-iconPicker-page{margin-top:6px;margin-bottom:-6px;font-size:12px;padding:0 2px;}.layui-iconPicker-page-count{display:inline-block;}.layui-iconPicker-page-operate{display:inline-block;float:right;cursor:default;}.layui-iconPicker-page-operate .layui-icon{font-size:12px;cursor:pointer;}.layui-iconPicker-body-page .layui-iconPicker-icon-limit{display:none;}.layui-iconPicker-body-page .layui-iconPicker-icon-limit:first-child{display:block;}';
+                let cssContent;//css内容
+                $.ajax({
+                    url: iconPickerPath.substring(0, iconPickerPath.lastIndexOf('/')) + '/iconPicker.css'
+                    , type: 'get'
+                    , dataType: 'text'
+                    , async: false
+                    , success: function (result) {
+                        cssContent = result;
+                    }
+                });
                 let $style = $('head').find('style[iconPicker]');
                 if ($style.length === 0) {
-                    $('head').append('<style rel="stylesheet" iconPicker>' + css + '</style>');
+                    $('head').append('<style rel="stylesheet" iconPicker>' + cssContent + '</style>');
                 }
-            }, /**
-             * 获取数据
-             */
+            },
+            //获取数据
             getData: {
                 fontClass: function () {
                     let iconData = [];
@@ -291,22 +319,21 @@ layui.define(['laypage', 'form'], function (exports) {
                         iconData.push(unicode);
                     }
                     return iconData;
-                }, /**
-                 * 加载图标的Svg数据
-                 */
+                },
+                //加载图标的Svg数据
                 loadSvgData: function () {
                     let svg;
                     $.ajax({
                         url: svg_url, type: 'get', dataType: 'xml', async: false, success: function (result) {
                             svg = result;
                         }
-                    })
+                    });
                     return svg.getElementsByTagName("svg")[0].getElementsByTagName("defs")[0].getElementsByTagName("font")[0].getElementsByTagName("glyph");
                 }
             }
         };
 
-        a.init();
+        picker.init();//图标选择器初始化
         return new IconPicker();
     };
 
