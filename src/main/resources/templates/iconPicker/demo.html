@@ -8,6 +8,7 @@
         }
 
         .iconPicker-demo {
+            margin-left: 100px;
             margin-top: 100px;
             border-width: 1px;
             border-style: solid;
@@ -20,46 +21,17 @@
     </style>
 </head>
 <body>
-<div class="iconPicker-demo layui-col-md4 layui-col-md-offset4">
-
+<div class="iconPicker-demo layui-col-md3">
     <div class="iconPicker-container">
         <blockquote class="layui-elem-quote">
-            <h1>添加菜单</h1>
+            <h1>简单使用</h1>
         </blockquote>
         <form class="layui-form">
             <div class="container">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">标题</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="title" lay-verify="title" placeholder="请输入标题" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">类型</label>
-                    <div class="layui-input-block">
-                        <select name="type">
-                            <option value="">请选择</option>
-                            <option value="1">菜单项</option>
-                            <option value="0" selected>菜单组</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
                     <label class="layui-form-label">图标</label>
                     <div class="layui-input-block">
-                        <input type="text" id="icon" name="icon" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">路径</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="href" placeholder="请输入路径" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">排序</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="sort" placeholder="请输入排序" class="layui-input">
+                        <input type="text" id="icon1" name="icon" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -70,7 +42,69 @@
                         重置
                     </button>
                     <button type="submit" class="layui-btn layui-btn-sm" lay-submit=""
-                            lay-filter="menu-save">
+                            lay-filter="form1">
+                        <i class="layui-icon layui-icon-ok"></i>
+                        提交
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="iconPicker-demo layui-col-md3">
+    <div class="iconPicker-container">
+        <blockquote class="layui-elem-quote">
+            <h1>参数配置</h1>
+        </blockquote>
+        <form class="layui-form">
+            <div class="container">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图标</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="icon2" name="icon" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="button-container">
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                    <button type="submit" class="layui-btn layui-btn-sm" lay-submit=""
+                            lay-filter="form2">
+                        <i class="layui-icon layui-icon-ok"></i>
+                        提交
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="iconPicker-demo layui-col-md3">
+    <div class="iconPicker-container">
+        <blockquote class="layui-elem-quote">
+            <h1>使用unicode</h1>
+        </blockquote>
+        <form class="layui-form">
+            <div class="container">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图标</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="icon3" name="icon" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="button-container">
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                    <button type="submit" class="layui-btn layui-btn-sm" lay-submit=""
+                            lay-filter="form3">
                         <i class="layui-icon layui-icon-ok"></i>
                         提交
                     </button>
@@ -90,27 +124,51 @@
             $ = layui.jquery;
 
         iconPicker.render({
-            elem: '#icon',// 选择器，推荐使用input
-            //url: '/layui/font/iconfont.svg',// Layui的字体 svg 路径
-            //type: 'unicode',
-            limit: 16,// 每页显示数量，默认12（默认4行）
-            click: function (data) { // 点击回调
-                console.log(data);
-            },
-            success: function (res) {// 渲染成功后的回调
-                console.log(res);
-            }
+            elem: '#icon1',// 图标组件，推荐使用input
         });
 
-        form.on('submit(menu-save)', function (data) {
+        iconPicker.render({
+            elem: '#icon2',// 图标组件，推荐使用input
+            url: '/layui/font/iconfont.svg',// Layui的字体 svg 路径
+            type: 'fontClass',// 图标数据类型：fontClass/unicode，推荐fontClass
+            page: false,// 是否分页：true/false，推荐且默认分页
+            limit: 24,// 每页显示数量，默认16（默认4*4）
+            search: false,// 是否开启搜索：true/false，推荐且默认true
+            cellWidth: '28%', //每个图标格子的宽度：'43px'或'20%'
+            click: function (data) { // 点击回调
+                console.log("icon2点击回调" + data);
+            },
+            success: function (res) {// 渲染成功后的回调
+                console.log("icon2渲染成功后的回调" + res);
+            }
+        });
+        iconPicker.render({
+            elem: '#icon3',// 图标组件，推荐使用input
+            type: 'unicode'
+        });
+
+        form.on('submit(form1)', function (data) {
             let field = data.field; // 获取表单全部字段值
-            //field.icon = '&#x' + field.icon.charCodeAt(0).toString(16) + ';';
-            //console.log(field.icon);
             // 显示填写结果，仅作演示用
             layer.alert(JSON.stringify(field), {
                 title: '当前填写的字段值'
             });
             // 此处可执行 Ajax 等操作
+            return false; // 阻止默认 form 跳转
+        });
+        form.on('submit(form2)', function (data) {
+            let field = data.field; // 获取表单全部字段值
+            // 显示填写结果，仅作演示用
+            layer.alert(JSON.stringify(field), {
+                title: '当前填写的字段值'
+            });
+            // 此处可执行 Ajax 等操作
+            return false; // 阻止默认 form 跳转
+        });
+        form.on('submit(form3)', function (data) {
+            let field = data.field; // 获取表单全部字段值
+            field.icon = '&#x' + field.icon.charCodeAt(0).toString(16) + ';';
+            console.log(JSON.stringify(field));// 显示填写结果
             return false; // 阻止默认 form 跳转
         });
 
