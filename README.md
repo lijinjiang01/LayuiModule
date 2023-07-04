@@ -25,4 +25,5 @@
 6. 支持图标渲染成功和点击后的函数回调
 
 效果演示：
+
 ![](https://gitee.com/lijinjiang01/image/raw/master/LayuiModule/iconPicker/gif01.gif)
