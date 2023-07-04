@@ -354,11 +354,19 @@ layui.define(['laypage', 'form'], function (exports) {
                 loadSvgData: function () {
                     let svg;
                     $.ajax({
-                        url: svg_url, type: 'get', dataType: 'xml', async: false, success: function (result) {
-                            svg = result;
+                        url: svg_url
+                        , type: 'get'
+                        , dataType: 'xml'
+                        , async: false
+                        , success: function (res) {
+                            svg = res;
                         }
                     });
-                    return svg.getElementsByTagName("svg")[0].getElementsByTagName("defs")[0].getElementsByTagName("font")[0].getElementsByTagName("glyph");
+                    if (svg != null && svg != undefined && svg != "") {
+                        return svg.getElementsByTagName("svg")[0].getElementsByTagName("defs")[0].getElementsByTagName("font")[0].getElementsByTagName("glyph");
+                    } else {
+                        return null;
+                    }
                 }
             }
         };
