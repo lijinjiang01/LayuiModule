@@ -1,19 +1,19 @@
-# Getting Started
+# LayuiModule
 
-### Reference Documentation
+![Java](https://img.shields.io/badge/Java-8-blue.svg)
+![IDE](https://img.shields.io/badge/IDE-IntelliJ%20IDEA-brightgreen.svg)
+![SpringBoot](https://img.shields.io/badge/SpringBoot-2.7.6-green.svg)
+![License](https://img.shields.io/badge/License-Apache2-orange.svg)
 
-For further reference, please consider the following sections:
+> System : Windows 10
+>
+> Intellij IDEA : Ultimate 2022.3.3
+>
+> Java : 1.8.0_333
+>
+> SpringBoot : 2.7.6
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.7.6/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/2.7.6/maven-plugin/reference/html/#build-image)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.7.6/reference/htmlsingle/#web)
-
-### Guides
-
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-
+## iconPicker
+组件：iconPicker，用于选择 Layui 的图标
+效果演示：
+![](https://gitee.com/lijinjiang01/image/raw/master/LayuiModule/iconPicker/gif01.gif)
