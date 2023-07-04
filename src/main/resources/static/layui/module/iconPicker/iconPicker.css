@@ -165,9 +165,9 @@
 
 /*清空按钮*/
 .icon-clear {
-    width: 40px;
-    height: 40px;
-    top: 6px;
+    width: 32px;
+    height: 32px;
+    top: 9px;
     left: 100px;
     position: absolute;
     margin-top: -6px;
