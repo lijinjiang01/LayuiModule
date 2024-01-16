@@ -1,10 +1,13 @@
 <!-- 通用 CSS -->
-<head th:fragment="header(title)" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="header">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <title th:text="${title}"></title>
-    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!--<title th:text="${title}"></title>-->
+    <link rel="stylesheet" th:href="@{/layui/module/module.css}">
+    <link rel="stylesheet" th:href="@{/sys/css/admin.min.css}">
     <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
 </head>
 
@@ -12,4 +15,5 @@
 <div th:fragment="footer">
     <script th:src="@{/layui/layui.js}"></script>
     <script th:src="@{/layui/module/module.js}"></script>
+    <script th:src="@{/sys/js/jquery.min.js}"></script>
 </div>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>系统主页</title>
+    <th:block th:include="/sys/common :: header"/>
+</head>
+<body class="child-body">
+<div class="child-container">
+    <div class="layui-row layui-col-space20">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <h1>系统主页</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!--资源引入-->
+<th:block th:include="/sys/common :: footer"/>
+<script>
+    layui.use(function () {
+
+    })
+</script>
+</html>

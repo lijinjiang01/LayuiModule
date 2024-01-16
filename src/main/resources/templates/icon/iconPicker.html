@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="/common :: header('IconPicker展示')"/>
+    <title>IconPicker</title>
+    <th:block th:include="/common :: header"/>
     <style>
         body {
             overflow-x: hidden;
         }
 
         .iconPicker-demo {
+            height: 250px;
             margin-top: 50px;
             margin-bottom: 50px;
             border-width: 1px;
@@ -172,8 +174,12 @@
 
         form.on('submit(form3)', function (data) {
             let field = data.field; // 获取表单全部字段值
-            field.icon = '&#x' + field.icon.charCodeAt(0).toString(16) + ';';
-            console.log(JSON.stringify(field));// 显示填写结果
+            let logData = '&#x' + field.icon.charCodeAt(0).toString(16) + ';';
+            console.log(JSON.stringify(logData));// 显示填写结果
+            let alterData = '&amp;#x' + field.icon.charCodeAt(0).toString(16) + ';';
+            layer.alert(JSON.stringify(alterData), {
+                title: '当前填写的字段值'
+            });
             return false; // 阻止默认 form 跳转
         });
     });

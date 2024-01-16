@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "title": "图标模块",
+    "icon": "layui-icon layui-icon-template-1",
+    "type": 0,
+    "href": "",
+    "children": [
+      {
+        "id": 101,
+        "title": "图标列表",
+        "icon": "",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "/icon/index"
+      },
+      {
+        "id": 102,
+        "title": "图标选择",
+        "icon": "",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "/icon/iconPicker"
+      }
+    ]
+  }
+]

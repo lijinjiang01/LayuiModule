@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>图标管理</title>
+    <th:block th:include="/common :: header"/>
+    <style>
+        #iconArea {
+            margin: 15px 0;
+        }
+
+        #iconArea > div {
+            display: inline-block;
+            vertical-align: middle;
+            height: 150px;
+            line-height: 25px;
+            padding: 20px 0;
+            margin-right: -1px;
+            margin-bottom: -1px;
+            border: 1px solid #e2e2e2;
+            font-size: 14px;
+            text-align: center;
+            color: #777;
+            cursor: pointer;
+            transition: all .3s;
+            -webkit-transition: all .3s;
+        }
+
+        .layui-icon {
+            display: inline-block;
+            font-size: 36px;
+        }
+
+    </style>
+</head>
+<body class="child-body">
+<div class="child-container">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <div id="iconArea" class="layui-row">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- 资 源 引 入 -->
+<th:block th:include="/common :: footer"/>
+<script>
+    layui.use(function () {
+        let $ = layui.jquery;
+        let iconMap = new Map();
+        let loadIcons = function () {
+            $.ajax({
+                url: "/layui/font/iconfont.svg"
+                , type: 'get'
+                , dataType: 'xml'
+                , async: false
+                , success: function (res) {
+                    if (res != null) {
+                        let icons = res.getElementsByTagName("svg")[0].getElementsByTagName("defs")[0].getElementsByTagName("font")[0].getElementsByTagName("glyph");
+                        if (icons != null) {
+                            for (let i = 0; i < icons.length; i++) {
+                                let iconUnicode = '&amp;#x' + icons[i].getAttribute("unicode").charCodeAt(0).toString(16) + ';';
+                                iconMap.set(icons[i].getAttribute("glyph-name"), iconUnicode);
+                            }
+                        }
+                    }
+                    appendIconArea();//追加图标显示
+                }
+            });
+        };
+
+        //加载图标
+        let appendIconArea = function () {
+            let area = $("#iconArea");
+            area.empty();//清空图标区域
+            let iconArray = Array.from(iconMap);
+            //按照value值升序排序
+            iconArray.sort(function (a, b) {
+                return a[1].localeCompare(b[1]);//排序
+            });
+            //遍历map
+            for (let [key, value] of iconArray) {
+
+                let iconCard = "<div class='layui-col-md1'>\n" +
+                    "               <i class=\"layui-icon layui-icon-" + key + "\"></i>\n" +
+                    "               <div class=\"docs-icon-name\">" + key + "</div>\n" +
+                    "               <div class=\"docs-icon-code\">" + value + "</div>\n" +
+                    "               <div class=\"docs-icon-fontclass\">layui-icon-" + key + "</div>\n" +
+                    "           </div>";
+                area.append(iconCard);
+            }
+        };
+
+        loadIcons();//初始化加载图标
+    })
+</script>
+</html>

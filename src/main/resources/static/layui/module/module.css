@@ -1,0 +1,25 @@
+@import url("../css/layui.css");
+@import url("frame/frame.css");
+@import url("fullscreen/fullscreen.css");
+@import url("loading/loading.css");
+@import url("menu/menu.css");
+@import url("message/message.css");
+@import url("tab/tab.css");
+
+.child-body {
+    background-color: whitesmoke;
+}
+
+.child-container {
+    padding: 10px;
+}
+
+/*表格行点击或悬浮样式*/
+.layui-table-click, .layui-table-hover, .layui-table[lay-even] tbody tr:nth-child(even) {
+    background-color: #D8D8D8 !important;
+}
+
+/*弹窗标题字体加粗*/
+.layui-layer-title {
+    font-weight: bold;
+}
