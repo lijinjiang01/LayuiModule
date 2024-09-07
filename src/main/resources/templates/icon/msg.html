@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>IconPicker</title>
+    <th:block th:include="/common :: header"/>
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="layui-row">
+        <button id="btn0" type="button" class="layui-btn layui-btn-primary">图标0</button>
+        <button id="btn1" type="button" class="layui-btn layui-btn-primary">图标1</button>
+        <button id="btn2" type="button" class="layui-btn layui-btn-primary">图标2</button>
+        <button id="btn3" type="button" class="layui-btn layui-btn-primary">图标3</button>
+        <button id="btn4" type="button" class="layui-btn layui-btn-primary">图标4</button>
+        <button id="btn5" type="button" class="layui-btn layui-btn-primary">图标5</button>
+        <button id="btn6" type="button" class="layui-btn layui-btn-primary">图标6</button>
+    </div>
+</div>
+<!-- 资 源 引 入 -->
+<th:block th:include="/common :: footer"/>
+<script>
+    layui.use(['layer', 'jquery'], function () {
+        let layer = layui.layer,
+            $ = layui.jquery;
+
+        $(document).on("click", '#btn0', function () {
+            layer.alert('图标 0', {
+                icon: 0,
+                shadeClose: true,
+                title: 'icon: 0'
+            });
+            return false;
+        });
+        $(document).on("click", '#btn1', function () {
+            layer.alert('图标 1', {
+                icon: 1,
+                shadeClose: true,
+                title: 'icon: 1'
+            });
+            return false;
+        });
+        $(document).on("click", '#btn2', function () {
+            layer.alert('图标 2', {
+                icon: 2,
+                shadeClose: true,
+                title: 'icon: 2'
+            });
+            return false;
+        });
+        $(document).on("click", '#btn3', function () {
+            layer.alert('图标 3', {
+                icon: 3,
+                shadeClose: true,
+                title: 'icon: 3'
+            });
+            return false;
+        });
+        $(document).on("click", '#btn4', function () {
+            layer.alert('图标 4', {
+                icon: 4,
+                shadeClose: true,
+                title: 'icon: 4'
+            });
+            return false;
+        });
+        $(document).on("click", '#btn5', function () {
+            layer.alert('图标 5', {
+                icon: 5,
+                shadeClose: true,
+                title: 'icon: 5'
+            });
+            return false;
+        });
+        $(document).on("click", '#btn6', function () {
+            layer.alert('图标 6', {
+                icon: 6,
+                shadeClose: true,
+                title: 'icon: 6'
+            });
+            return false;
+        });
+
+    })
+</script>
+</body>
+</html>

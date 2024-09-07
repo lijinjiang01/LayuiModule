@@ -6,12 +6,19 @@
 @import url("message/message.css");
 @import url("tab/tab.css");
 
-.child-body {
+/*默认烟白主题*/
+body {
     background-color: whitesmoke;
 }
 
-.child-container {
-    padding: 10px;
+/*白色主题*/
+.body-white {
+    background-color: white;
+}
+
+/*页面内容*/
+.container {
+    padding: 15px;
 }
 
 /*表格行点击或悬浮样式*/

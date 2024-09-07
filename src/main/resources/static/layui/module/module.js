@@ -11,6 +11,7 @@ layui.config({
 }).extend({
     admin: "admin/admin",// 框架布局组件
     convert: "convert/convert",// 数据转换
+    cityPicker: "cityPicker/city-picker",//地区选择
     drawer: "drawer/drawer",// 抽屉弹层组件
     excel: "excel/excel",// 抽屉弹层组件
     frame: "frame/frame",// 内容页面组件

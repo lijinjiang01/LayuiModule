@@ -1,19 +1,17 @@
 <!-- 通用 CSS -->
-<head th:fragment="header">
+<div th:fragment="header">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    <!--<title th:text="${title}"></title>-->
-    <link rel="stylesheet" th:href="@{/layui/module/module.css}">
-    <link rel="stylesheet" th:href="@{/sys/css/admin.min.css}">
+    <link rel="stylesheet" th:href="@{/plugin/layui/module/module.css}">
+    <link rel="stylesheet" th:href="@{/css/common.css}"><!--提高自定义样式的优先级-->
     <link rel="shortcut icon" th:href="@{/favicon.ico}" type="image/x-icon">
-</head>
+</div>
 
 <!-- 通用 JAVASCRIPT -->
 <div th:fragment="footer">
-    <script th:src="@{/layui/layui.js}"></script>
-    <script th:src="@{/layui/module/module.js}"></script>
-    <script th:src="@{/sys/js/jquery.min.js}"></script>
+    <script th:src="@{/plugin/layui/layui.js}"></script>
+    <script th:src="@{/plugin/layui/module/module.js}"></script>
 </div>

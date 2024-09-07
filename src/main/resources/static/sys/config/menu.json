@@ -21,6 +21,31 @@
         "type": 1,
         "openType": "_iframe",
         "href": "/icon/iconPicker"
+      },
+      {
+        "id": 103,
+        "title": "消息图标",
+        "icon": "",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "/icon/msg"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "地址模块",
+    "icon": "layui-icon layui-icon-location",
+    "type": 0,
+    "href": "",
+    "children": [
+      {
+        "id": 101,
+        "title": "地址选择",
+        "icon": "",
+        "type": 1,
+        "openType": "_iframe",
+        "href": "/location/index"
       }
     ]
   }

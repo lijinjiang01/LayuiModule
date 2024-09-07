@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Layui后台管理</title>
+    <title></title>
     <th:block th:include="/common :: header"/>
-    <link rel="stylesheet" th:href="@{/sys/css/loader.css}"/>
+    <link rel="stylesheet" th:href="@{/css/loader.css}"/>
 </head>
 <!-- 结 构 代 码 -->
 <body class="layui-layout-body pear-admin">
@@ -27,12 +27,16 @@
         <div id="control" class="layui-layout-control"></div>
         <!-- 顶 部 右 侧 菜 单 -->
         <ul class="layui-nav layui-layout-right">
-
+            <li class="layui-nav-item layui-hide-xs"><a href="#"
+                                                        class="fullScreen layui-icon layui-icon-screen-full"></a></li>
             <li class="layui-nav-item user">
                 <!-- 头 像 -->
-                <a class="layui-icon layui-icon-username" href="javascript:;">&emsp;admin</a>
+                <a class="layui-icon layui-icon-username" href="javascript:;" th:text="'&ensp;'+${username}"> </a>
                 <!-- 功 能 菜 单 -->
                 <dl class="layui-nav-child">
+                    <dd><a href="javascript:void(0);" th:user-menu-url="'/view/sys/user/info?userId='+${userId}"
+                           user-menu-id="userInfoMenu"
+                           user-menu-title="基本资料">基本资料</a></dd>
                     <dd><a href="javascript:void(0);" class="logout">注销登录</a></dd>
                 </dl>
             </li>
@@ -62,13 +66,13 @@
     <!-- 页脚 -->
     <div class="layui-footer layui-text">
         <span class="left">
-
+            Version @project.version@
         </span>
         <span class="center">
-
+            推荐分辨率：1920*1080/2560*1440
         </span>
         <span class="right">
-            Copyright © 2024 Layui
+            Copyright © 2023 上海电气集团股份有限公司中央研究院
         </span>
     </div>
     <!-- 遮 盖 层 -->
@@ -92,9 +96,31 @@
             admin = layui.admin,
             popup = layui.popup;
 
-        admin.setConfigType("yml");
-        admin.setConfigPath("/sys/config.yml");
+        $('title').html('[[${title}]]');
+
+        admin.setConfigType("json");
+        admin.setConfigPath("/configs?userId=[[${userId}]]");
         admin.render();
+
+        // 登录注销
+        admin.logout(function () {
+            let loading = layer.load();
+            $.ajax({
+                url: '/logout',
+                dataType: 'json',
+                async: false,
+                type: 'post',
+                success: (res) => {
+                    layer.close(loading);
+                    if (res.code === 200) {
+                        popup.success(res.msg, function () {
+                            location.href = "/";//返回到登录页面
+                        });
+                    }
+                }
+            })
+            return true;
+        });
     })
 </script>
 </body>

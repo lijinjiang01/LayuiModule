@@ -26,4 +26,14 @@ public class ViewController {
         return new ModelAndView("/icon/iconPicker");
     }
 
+    @GetMapping("/icon/msg")
+    public ModelAndView msg() {
+        return new ModelAndView("/icon/msg");
+    }
+
+    @GetMapping("/location/index")
+    public ModelAndView locationIndex() {
+        return new ModelAndView("/location/index");
+    }
+
 }

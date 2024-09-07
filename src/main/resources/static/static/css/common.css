@@ -1,0 +1,97 @@
+/*滚动条样式*/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f5f5f5; /*transparent*/
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #9c9da0;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-button:vertical {
+    display: none;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track:vertical {
+    background-color: black;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:vertical {
+    margin-right: 10px;
+    background-color: #a6a6a6;
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:vertical:hover {
+    background-color: #aaa;
+}
+
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-corner:vertical {
+    background-color: #535353;
+}
+
+/*默认烟白主题*/
+body {
+    background-color: whitesmoke;
+}
+
+/*白色主题*/
+.body-white {
+    background-color: white;
+}
+
+/*页面内容*/
+.container {
+    padding: 10px;
+    margin: 10px;
+}
+
+/*表格行点击或悬浮样式*/
+.layui-table-click, .layui-table-hover, .layui-table[lay-even] tbody tr:nth-child(even) {
+    background-color: #D8D8D8 !important;
+}
+
+/*弹窗标题字体加粗*/
+.layui-layer-title {
+    font-weight: bold;
+}
+
+/*禁止链接中的文字被选中*/
+.layui-table-page .layui-laypage a {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+/*卡片的圆角*/
+.layui-card {
+    border-radius: 0.5rem;
+}
+
+/*卡片内表单的上边缘宽度*/
+.layui-card-body .layui-form {
+    margin-top: 0;
+}
