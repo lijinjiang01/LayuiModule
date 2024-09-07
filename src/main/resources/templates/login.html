@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>统一登录</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+    <link rel="stylesheet" th:href="@{/plugin/layui/css/layui.css}"/>
+</head>
+<!-- 代码结构 -->
+<body>
+<form class="layui-form" method="post">
+    <div class="layui-form-item">
+        <img class="logo" src="/image/logo.png" alt="logo"/>
+        <div class="title">系 统 登 录</div>
+    </div>
+    <div class="layui-form-item">
+        <input id="username" placeholder="用户名" name="username" lay-affix="clear" lay-verify="username"
+               class="layui-input"/>
+    </div>
+    <div class="layui-form-item">
+        <input id="password" type="password" placeholder="密&emsp;码" name="password" lay-affix="eye"
+               lay-verify="password" class="layui-input"/>
+    </div>
+    <div class="layui-form-item">
+        <button id="login" type="button" class="pear-btn pear-btn-success login login-btn" lay-submit lay-filter="login">
+            登 录
+        </button>
+    </div>
+</form>
+<!-- 资 源 引 入 -->
+<script th:src="@{/js/crypto-js.min.js}"></script>
+<script th:src="@{/plugin/layui/layui.js}"></script>
+<script>
+    // 在被嵌套时就刷新上级窗口
+    if (window !== top) {
+        top.location.href = location.href;
+    }
+
+    layui.define(function () {
+        let form = layui.form,
+            $ = layui.jquery;
+
+        //回车触发登录
+        $(document).on('keyup', function (e) {
+            if (e.key === "Enter") {
+                $("#login").trigger("click");
+            }
+        });
+
+        //表单校验
+        form.verify({
+            username: function (value) {
+                if (value === undefined || value === null || value === '') {
+                    return '用户名不能为空！';
+                }
+            },
+            password: function (value) {
+                if (value === undefined || value === null || value === '') {
+                    return '密码不能为空！';
+                }
+            }
+        });
+
+        let key = 'vuwqwR5BM5yktVbL'; // 16字节的密钥
+        let iv = 'SZWnFwycTPSE3D3F';  // 16字节的IV
+
+        /**
+         * AES加密
+         * @param {string} data 要加密的数据
+         * @param {string} key 长度16
+         * @param {string} iv 长度16
+         * @returns 返回base64
+         */
+        function encrypt(data, key, iv) {
+            if (key && iv) {
+                key = CryptoJS.enc.Utf8.parse(key);
+                iv = CryptoJS.enc.Utf8.parse(iv);
+            }
+            let parseData = CryptoJS.enc.Utf8.parse(data);
+            let encrypt = CryptoJS.AES.encrypt(parseData, key, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,  //AES加密的模式
+                padding: CryptoJS.pad.Pkcs7
+            });
+            return CryptoJS.enc.Base64.stringify(encrypt.ciphertext);
+        }
+
+        //用户登录
+        form.on('submit(login)', function (obj) {
+            let url = new URL(window.location.href);//获取浏览器内地址
+            let appid = url.searchParams.get('appid');//获取参数appid
+            obj.field.password = encrypt(obj.field.password, key, iv);//密码用JS加密且转大写
+            $.ajax({
+                url: '/sso/login',
+                type: 'post',
+                data: {
+                    name: obj.field.username,
+                    pwd: obj.field.password,
+                    appid: appid
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code === 200) {
+                        layer.msg('登录成功', {anim: 0, icon: 6});
+                        setTimeout(function () {
+                            location.reload();
+                        }, 600)
+                    } else {
+                        layer.alert(res.msg, {icon: 2, title: '错误'}, function (index) {//遇到异常需要手动关闭
+                            layer.close(index);
+                        });
+                    }
+                }
+            });
+            return false;
+        })
+    });
+</script>
+</body>
+</html>
